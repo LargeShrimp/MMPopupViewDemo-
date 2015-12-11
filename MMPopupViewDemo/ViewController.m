@@ -11,7 +11,11 @@
 #import "MMPopupViewItem.h"
 #import "MMAlertView.h"
 #import "MMPopupCategory.h"
-@interface ViewController ()
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (strong,nonatomic)UITableView *tableView;
+@property (nonatomic,strong) NSArray *dataSource;
+
 
 @end
 
@@ -20,37 +24,70 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"MMPopupViewDemo";
+    self.tableView            = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.tableView.delegate   = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
     
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(200   , 200, 120, 40)];
-
-    [btn setTitle:@"show" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-
-    [btn addTarget:self action:@selector(showIntegView) forControlEvents:UIControlEventTouchUpInside];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"e"];
     
-    [self.view addSubview:btn];
+    
+    self.dataSource = @[@"AlertView Default",@"AlertView Conform"];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return self.dataSource.count;
 }
 
 
-- (void)showIntegView {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"e"];
+    cell.textLabel.text   = self.dataSource[indexPath.row];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MMItemHanfler handler = ^(NSInteger idx) {
-        NSLog(@"click item idx = %d",idx);
+        NSLog(@"click item idx = %ld",(long)idx);
         
         
     };
+
+    switch (indexPath.row) {
+        case 0:
+        {
+            NSArray *items = @[MMPopupViewMake(@"OK", MMItemTypeNormal, handler),
+                               MMPopupViewMake(@"Save", MMItemTypeHighlight, handler),
+                               MMPopupViewMake(@"Cancle", MMItemTypeDisabled, nil)];
+            
+            MMAlertView *alertView = [[MMAlertView alloc]initWithTitle:@"是否保存" detail:@"莫斯科没有眼泪" items:items];
+            alertView.attachedView = self.view;
+            [alertView show];
+
+            break;
+        }
+        case 1:
+        {
+            NSArray *items = @[MMPopupViewMake(@"OK", MMItemTypeHighlight, nil)];
+            MMAlertView *alertView = [[MMAlertView alloc]initWithTitle:@"警告" detail:@"是否要删除所选商品" items:items];
+            alertView.attachedView = self.view;
+            [alertView show];
+
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+- (void)showIntegView {
     
-    NSArray *items = @[MMPopupViewMake(@"OK", MMItemTypeNormal, handler),
-                       MMPopupViewMake(@"Save", MMItemTypeHighlight, handler),
-                       MMPopupViewMake(@"Cancle", MMItemTypeDisabled, handler)];
     
-    MMAlertView *alertView = [[MMAlertView alloc]initWithTitle:@"是否保存" detail:@"莫斯科没" items:items];
-    
-    
-    alertView.attachedView = self.view;
-    
-    [alertView show];
 
 }
 

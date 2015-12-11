@@ -76,17 +76,17 @@
             [self addSubview:self.detailLabel];
             [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
               
-                make.top.equalTo(attibute).offset(5);
+                make.top.equalTo(attibute).offset(10);
                 make.left.and.right.equalTo(self).insets(UIEdgeInsetsMake(0, config.innerMargin, 0, config.innerMargin));
                 
             }];
             
             self.detailLabel.textAlignment = NSTextAlignmentCenter;
-            self.detailLabel.textColor = config.titleColor;
+            self.detailLabel.textColor = config.detailColor;
             self.detailLabel.text = detail;
             self.detailLabel.numberOfLines = 0;
             self.detailLabel.backgroundColor = config.backgroundColor;
-            self.detailLabel.font = [UIFont systemFontOfSize:config.titleFontSize];
+            self.detailLabel.font = [UIFont systemFontOfSize:config.detailFontSize];
             attibute = self.detailLabel.mas_bottom;
         }
         
