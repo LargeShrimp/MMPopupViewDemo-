@@ -18,6 +18,7 @@
 		848BCF671C0EED310057A9B6 /* MMPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848BCF661C0EED310057A9B6 /* MMPopupView.m */; };
 		848BCF6A1C0EED540057A9B6 /* MMPopupViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 848BCF691C0EED540057A9B6 /* MMPopupViewItem.m */; };
 		848BCF6D1C0EED680057A9B6 /* MMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 848BCF6C1C0EED680057A9B6 /* MMAlertView.m */; };
+		84C00BEC1C1BC9E200428761 /* MMSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C00BEB1C1BC9E200428761 /* MMSheetView.m */; };
 		EE3C5893B836DF896A038BA7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E007AB3C5E758E2ED1AA60 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		848BCF691C0EED540057A9B6 /* MMPopupViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupViewItem.m; sourceTree = "<group>"; };
 		848BCF6B1C0EED680057A9B6 /* MMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAlertView.h; sourceTree = "<group>"; };
 		848BCF6C1C0EED680057A9B6 /* MMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAlertView.m; sourceTree = "<group>"; };
+		84C00BEA1C1BC9E200428761 /* MMSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSheetView.h; sourceTree = "<group>"; };
+		84C00BEB1C1BC9E200428761 /* MMSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSheetView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				848BCF6C1C0EED680057A9B6 /* MMAlertView.m */,
 				840102371C156FA000180EBB /* MMPopupCategory.h */,
 				840102381C156FA000180EBB /* MMPopupCategory.m */,
+				84C00BEA1C1BC9E200428761 /* MMSheetView.h */,
+				84C00BEB1C1BC9E200428761 /* MMSheetView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -248,6 +253,7 @@
 				848BCF671C0EED310057A9B6 /* MMPopupView.m in Sources */,
 				848BCF6A1C0EED540057A9B6 /* MMPopupViewItem.m in Sources */,
 				848BCF511C0EECFD0057A9B6 /* AppDelegate.m in Sources */,
+				84C00BEC1C1BC9E200428761 /* MMSheetView.m in Sources */,
 				848BCF4E1C0EECFD0057A9B6 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

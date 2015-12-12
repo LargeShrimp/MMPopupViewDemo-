@@ -35,4 +35,5 @@ typedef void (^MMPopupBlock)(MMPopupView *popupView);
 - (void) show;
 - (void) hide;
 
+- (void)showWithBlock:(MMPopupBlock)block;
 @end

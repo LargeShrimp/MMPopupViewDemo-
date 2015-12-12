@@ -11,6 +11,7 @@
 #import "MMPopupViewItem.h"
 #import "MMAlertView.h"
 #import "MMPopupCategory.h"
+#import "MMSheetView.h"
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (strong,nonatomic)UITableView *tableView;
@@ -29,11 +30,11 @@
     self.tableView.delegate   = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    
+    self.tableView.tableFooterView = [UIView new];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"e"];
     
     
-    self.dataSource = @[@"AlertView Default",@"AlertView Conform"];
+    self.dataSource = @[@"AlertView Default",@"AlertView Conform",@"Default Sheet view"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -51,9 +52,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MMItemHanfler handler = ^(NSInteger idx) {
         NSLog(@"click item idx = %ld",(long)idx);
-        
+    };
+    
+    MMPopupBlock completeBlock = ^(MMPopupView *popupView) {
+      
         
     };
 
@@ -74,12 +80,24 @@
         {
             NSArray *items = @[MMPopupViewMake(@"OK", MMItemTypeHighlight, nil)];
             MMAlertView *alertView = [[MMAlertView alloc]initWithTitle:@"警告" detail:@"是否要删除所选商品" items:items];
-            alertView.attachedView = self.view;
+//            alertView.attachedView = self.view;
             [alertView show];
 
             break;
         }
             
+        case 2:
+        {
+            NSArray *items = @[MMPopupViewMake(@"OK", MMItemTypeHighlight, handler),
+                               MMPopupViewMake(@"height lighted", MMItemTypeHighlight, handler),
+                               MMPopupViewMake(@"Normal", MMItemTypeHighlight, handler)];
+            
+            MMSheetView *sheetView =  [[MMSheetView alloc]initSheetViewWithTitle:@"<< MMSheeetView >>" items:items];
+//            sheetView.attachedView = self.tableView.superview;
+            [sheetView showWithBlock:completeBlock];
+            
+            break;
+        }
         default:
             break;
     }

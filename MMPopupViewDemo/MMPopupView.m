@@ -51,7 +51,13 @@
             self.hideAnimation = [self alertHideAniamtion];
             break;
         }
-                       
+            
+        case MMItemTypeSheet:
+        {
+            self.showAnimation = [self sheetShowAnimation];
+            self.hideAnimation = [self sheetHideAniamiton];
+            break;
+        }
         default:
             break;
     }
@@ -118,7 +124,6 @@
         } completion:^(BOOL finished) {
             
             if (self.showCompletionBlock) {
-                
                 self.showCompletionBlock(self);
             }
         }];
@@ -128,15 +133,12 @@
 - (MMPopupBlock )alertHideAniamtion {
 
 //    __weak typeof(self)weakself = self;
-    
     MMPopupBlock block = ^(MMPopupView *popupView){
         [UIView animateWithDuration:self.animationDuration
                               delay:0
                             options: UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             
                              self.alpha = 0.0f;
-                             
                          }
                          completion:^(BOOL finished) {
                              
@@ -150,6 +152,58 @@
                          }];
     };
     
+    
+    return block;
+}
+- (MMPopupBlock )sheetShowAnimation {
+    
+    MMPopupBlock block = ^(MMPopupView *popupView) {
+        
+//        添加到灰色背景上
+        [self.attachedView.mm_dimBackgroundView addSubview:self];
+        
+        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+           
+            make.centerX.equalTo(self.attachedView);
+            make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.width);
+            
+        }];
+        [self layoutIfNeeded];
+        [UIView animateWithDuration:self.animationDuration animations:^{
+           
+            [self mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.attachedView.mas_bottom).offset(0);
+            }];
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if (self.showCompletionBlock) {
+                self.showCompletionBlock(self);
+            }
+        }];
+        
+    };
+    return block;
+}
+
+- (MMPopupBlock ) sheetHideAniamiton {
+    
+    MMPopupBlock block = ^(MMPopupView *popupView) {
+        
+    [UIView animateWithDuration:self.animationDuration delay:0 options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [self mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
+        }];
+        [self layoutIfNeeded];
+
+    } completion:^(BOOL finished) {
+        
+        [self removeFromSuperview];
+        if (self.hideCompletionBlock) {
+            self.hideCompletionBlock(self);
+        }
+
+    }];
+    };
     
     return block;
 }
